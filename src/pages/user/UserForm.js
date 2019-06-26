@@ -1,0 +1,47 @@
+import React, { Component }  from 'react';
+import {reduxForm , Field} from 'redux-form'
+import { connect } from 'react-redux'
+import {submitUserAction} from '../../actions/user/UserActions'
+
+
+const UserFormDef = props =>{
+    
+    const { handleSubmit } = props
+    console.log(props)
+    const submit = (data, submitUserAction) =>{
+        submitUserAction(data)
+    }
+    
+    
+    return (
+        <form onSubmit={ handleSubmit( fields => submit(fields, submitUserAction))}>
+            
+            <label>
+                Name
+            </label>  
+            <Field 
+                type="text"
+                component="input"
+                name="name"/>
+            <label>
+                Email
+            </label>  
+            <Field 
+                type="text"
+                component="input"
+                name="email"/>
+            <button type="submit" >Enviar</button>
+        </form>
+    
+    )}
+    
+    
+const UserForm = (reduxForm({
+    form:'formUser'
+}))(UserFormDef)
+    
+const mapStateToProps = state => ({
+    
+})
+    
+export default connect(mapStateToProps, {submitUserAction})(UserForm)
